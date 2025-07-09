@@ -1,0 +1,41 @@
+import string
+
+def check_password_strength(password):
+    score = 0
+    missing = []
+
+    if len(password) >= 8:
+        score += 1
+    else:
+        missing.append("Length should be at least 8")
+
+    if any(c.islower() for c in password):
+        score += 1
+    else:
+        missing.append("At least one lowercase letter")
+
+    if any(c.isupper() for c in password):
+        score += 1
+    else:
+        missing.append("At least one uppercase letter")
+
+    if any(c.isdigit() for c in password):
+        score += 1
+    else:
+        missing.append("At least one number")
+
+    if any(c in string.punctuation for c in password):
+        score += 1
+    else:
+        missing.append("At least one special character")
+
+    if score <= 2:
+        strength = "Weak ❌"
+    elif score == 3:
+        strength = "Moderate ⚠️"
+    elif score == 4:
+        strength = "Strong ✅"
+    else:
+        strength = "Very Strong 💪"
+
+    return score, strength, missing
